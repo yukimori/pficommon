@@ -30,7 +30,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <gtest/gtest.h>
-
+#include <iostream>
 #include "./ustring.h"
 
 #include <sstream>
@@ -384,6 +384,10 @@ TEST(ustring_utf_8_decode_replacement_test, utf_8_byte_sequences_have_an_invalid
 TEST(ustring_utf_8_decode_replacement_test, utf_8_byte_sequences_have_a_surrogate)
 {
   {
+      std::string input("\u3042\u3044#\u3046\u3048\u304a\u30ed\u30c3\u30af\u30d5\u30ea\u30fc");
+      std::cout << "input=" << input << std::endl;
+      ustring utest = string_to_ustring(input);
+      std::cout << "utest=" << utest << std::endl;
     const char str[] = {'\xED', '\xA0', '\x80', '\x00'}; // U+D800
     const char* p=str;
     EXPECT_EQ(replace_char, chars_to_uchar(p, p + strlen(p)));
